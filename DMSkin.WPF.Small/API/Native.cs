@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DMSkin
 {
-    public enum HitTest : int
+    internal enum HitTest : int
     {
         /// <summary>  
         /// On the screen background or on a dividing line between windows (same as HTNOWHERE, except that the DefWindowProc function produces a system beep to indicate an error).  
@@ -139,7 +139,7 @@ namespace DMSkin
         HTHELP = 21,
     };
 
-    public enum GetWindow_Cmd : uint
+    internal enum GetWindow_Cmd : uint
     {
         GW_HWNDFIRST = 0,
         GW_HWNDLAST = 1,
@@ -150,7 +150,7 @@ namespace DMSkin
         GW_ENABLEDPOPUP = 6
     }
 
-    public enum HitTestValues
+    internal enum HitTestValues
     {
         HTERROR = -2,
         HTTRANSPARENT = -1,
@@ -178,7 +178,7 @@ namespace DMSkin
         HTHELP = 21
     }
 
-    public enum WindowMessages
+    internal enum WindowMessages
     {
         WM_NULL = 0x0000,
         WM_CREATE = 0x0001,
@@ -312,7 +312,7 @@ namespace DMSkin
         WM_PRINTCLIENT = 0x0318,
     }
 
-    public enum SystemCommands
+    internal enum SystemCommands
     {
         SC_SIZE = 0xF000,
         SC_MOVE = 0xF010,
@@ -340,14 +340,14 @@ namespace DMSkin
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct RECT
+    internal struct RECT
     {
-        public int left;
-        public int top;
-        public int right;
-        public int bottom;
+        internal int left;
+        internal int top;
+        internal int right;
+        internal int bottom;
 
-        public RECT(int left, int top, int right, int bottom)
+        internal RECT(int left, int top, int right, int bottom)
         {
             this.left = left;
             this.top = top;
@@ -355,7 +355,7 @@ namespace DMSkin
             this.bottom = bottom;
         }
 
-        public static RECT FromXYWH(int x, int y, int width, int height)
+        internal static RECT FromXYWH(int x, int y, int width, int height)
         {
             return new RECT(x,
                             y,
@@ -364,38 +364,38 @@ namespace DMSkin
         }
     }
 
-    public struct POINTAPI
+    //internal struct POINTAPI
+    //{
+    //    internal int x;
+    //    internal int y;
+    //}
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct WINDOWPOS
+    {
+        internal IntPtr hwnd;
+        internal IntPtr hWndInsertAfter;
+        internal int x;
+        internal int y;
+        internal int cx;
+        internal int cy;
+        internal uint flags;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct POINTS
+    {
+        internal short X;
+        internal short Y;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct POINT
     {
         internal int x;
         internal int y;
-    }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct WINDOWPOS
-    {
-        public IntPtr hwnd;
-        public IntPtr hWndInsertAfter;
-        public int x;
-        public int y;
-        public int cx;
-        public int cy;
-        public uint flags;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct POINTS
-    {
-        public short X;
-        public short Y;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct POINT
-    {
-        public int x;
-        public int y;
-
-        public POINT(int x, int y)
+        internal POINT(int x, int y)
         {
             this.x = x;
             this.y = y;
@@ -403,28 +403,28 @@ namespace DMSkin
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct MINMAXINFO
+    internal struct MINMAXINFO
     {
-        public POINT ptReserved;
-        public POINT ptMaxSize; // The maximized size of the window  
-        public POINT ptMaxPosition; // The position of the maximized window  
-        public POINT ptMinTrackSize;
-        public POINT ptMaxTrackSize;
+        internal POINT ptReserved;
+        internal POINT ptMaxSize; // The maximized size of the window  
+        internal POINT ptMaxPosition; // The position of the maximized window  
+        internal POINT ptMinTrackSize;
+        internal POINT ptMaxTrackSize;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public class MONITORINFOEX
+    internal class MONITORINFOEX
     {
-        public int cbSize;
-        public RECT rcMonitor; // The display monitor rectangle  
-        public RECT rcWork; // The working area rectangle  
-        public int dwFlags;
+        internal int cbSize;
+        internal RECT rcMonitor; // The display monitor rectangle  
+        internal RECT rcWork; // The working area rectangle  
+        internal int dwFlags;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 0x20)]
-        public char[] szDevice;
+        internal char[] szDevice;
     }
 
     [Flags]
-    public enum WindowStyle
+    internal enum WindowStyle
     {
         WS_OVERLAPPED = 0x00000000,
         WS_POPUP = -2147483648, //0x80000000,
@@ -457,32 +457,32 @@ namespace DMSkin
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct NativeMessage
+    internal struct NativeMessage
     {
-        public IntPtr handle;
-        public uint msg;
-        public IntPtr wParam;
-        public IntPtr lParam;
-        public uint time;
-        public System.Windows.Point p;
+        internal IntPtr handle;
+        internal uint msg;
+        internal IntPtr wParam;
+        internal IntPtr lParam;
+        internal uint time;
+        internal System.Windows.Point p;
     }
 
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct APPBARDATA
+    internal struct APPBARDATA
     {
-        public int cbSize; // initialize this field using: Marshal.SizeOf(typeof(APPBARDATA));
-        public IntPtr hWnd;
-        public uint uCallbackMessage;
-        public uint uEdge;
-        public RECT rc;
-        public int lParam;
+        internal int cbSize; // initialize this field using: Marshal.SizeOf(typeof(APPBARDATA));
+        internal IntPtr hWnd;
+        internal uint uCallbackMessage;
+        internal uint uEdge;
+        internal RECT rc;
+        internal int lParam;
     }
 
-    public static class NativeMethods
+    internal static class NativeMethods
     {
         [DllImport("kernel32.dll", EntryPoint = "SetLastError")]
-        public static extern void SetLastError(int dwErrorCode);
+        internal static extern void SetLastError(int dwErrorCode);
 
         [DllImport("user32.dll", EntryPoint = "SetWindowLong", SetLastError = true)]
         private static extern Int32 IntSetWindowLong(IntPtr hWnd, int nIndex, Int32 dwNewLong);
@@ -496,7 +496,7 @@ namespace DMSkin
             return unchecked((int)intPtr.ToInt64());
         }
 
-        public static IntPtr SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
+        internal static IntPtr SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
         {
             int error = 0;
             IntPtr result = IntPtr.Zero;
@@ -526,114 +526,114 @@ namespace DMSkin
         }
 
 
-        [DllImport("gdi32.dll")]
-        public static extern IntPtr CreatePolygonRgn(ref POINTAPI lpPoint, int nCount, int nPolyFillMode);
+        //[DllImport("gdi32.dll")]
+        //internal static extern IntPtr CreatePolygonRgn(ref POINTAPI lpPoint, int nCount, int nPolyFillMode);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr MonitorFromWindow(IntPtr hwnd, int dwFlags);
+        internal static extern IntPtr MonitorFromWindow(IntPtr hwnd, int dwFlags);
 
         [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
+        internal static extern bool ReleaseCapture();
 
         [DllImport("user32.dll")]
-        public static extern IntPtr SetCapture(IntPtr hWnd);
+        internal static extern IntPtr SetCapture(IntPtr hWnd);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr GetCapture();
+        internal static extern IntPtr GetCapture();
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        internal static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr SetActiveWindow(IntPtr hWnd);
+        internal static extern IntPtr SetActiveWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hwnd, int msg, int wparam, int lparam);
+        internal static extern int SendMessage(IntPtr hwnd, int msg, int wparam, int lparam);
 
         [DllImport("user32.dll")]
-        public static extern int PostMessage(IntPtr hwnd, int msg, int wparam, int lparam);
+        internal static extern int PostMessage(IntPtr hwnd, int msg, int wparam, int lparam);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+        internal static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
 
         [DllImport("user32.dll")]
-        public static extern int TrackPopupMenuEx(IntPtr hmenu, uint fuFlags, int x, int y,
+        internal static extern int TrackPopupMenuEx(IntPtr hmenu, uint fuFlags, int x, int y,
            IntPtr hwnd, IntPtr lptpm);
 
         [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        internal static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hwnd, int msg, int wparam, POINTS pos);
+        internal static extern int SendMessage(IntPtr hwnd, int msg, int wparam, POINTS pos);
 
         [DllImport("user32.dll")]
-        public static extern int PostMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        internal static extern int PostMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll")]
-        public static extern int PostMessage(IntPtr hwnd, int msg, int wparam, POINTS pos);
+        internal static extern int PostMessage(IntPtr hwnd, int msg, int wparam, POINTS pos);
 
         [DllImport("user32.dll")]
-        public static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
+        internal static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool IsWindowVisible(IntPtr hWnd);
+        internal static extern bool IsWindowVisible(IntPtr hWnd);
 
         [DllImport("gdi32.dll")]
-        public static extern IntPtr CreateRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
+        internal static extern IntPtr CreateRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
 
         [DllImport("user32.dll")]
-        public static extern int GetWindowRgn(IntPtr hWnd, IntPtr hRgn);
+        internal static extern int GetWindowRgn(IntPtr hWnd, IntPtr hRgn);
 
         [DllImport("gdi32.dll")]
-        public static extern int GetRgnBox(IntPtr hrgn, out RECT lprc);
+        internal static extern int GetRgnBox(IntPtr hrgn, out RECT lprc);
 
         [DllImport("user32.dll")]
-        public static extern Int32 GetWindowLong(IntPtr hWnd, Int32 Offset);
+        internal static extern Int32 GetWindowLong(IntPtr hWnd, Int32 Offset);
 
         [DllImport("user32.dll")]
-        public static extern int GetSystemMetrics(int smIndex);
+        internal static extern int GetSystemMetrics(int smIndex);
 
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className, string windowTitle);
+        [DllImport("user32.dll", SetLastError = true,CharSet =CharSet.Unicode)]
+        internal static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className, string windowTitle);
 
         [DllImport("shell32.dll")]
-        public static extern int SHAppBarMessage(uint dwMessage, [In] ref APPBARDATA pData);
+        internal static extern int SHAppBarMessage(uint dwMessage, [In] ref APPBARDATA pData);
 
         [DllImport("user32.dll")]
-        public static extern bool GetMonitorInfo(HandleRef hmonitor, [In, Out] MONITORINFOEX monitorInfo);
+        internal static extern bool GetMonitorInfo(HandleRef hmonitor, [In, Out] MONITORINFOEX monitorInfo);
 
     }
 
-    public static class NativeConstants
+    internal static class NativeConstants
     {
-        public const int SM_CXSIZEFRAME = 32;
-        public const int SM_CYSIZEFRAME = 33;
-        public const int SM_CXPADDEDBORDER = 92;
+        internal const int SM_CXSIZEFRAME = 32;
+        internal const int SM_CYSIZEFRAME = 33;
+        internal const int SM_CXPADDEDBORDER = 92;
         
-        public const int GWL_ID = (-12);
-        public const int GWL_STYLE = (-16);
-        public const int GWL_EXSTYLE = (-20);
+        internal const int GWL_ID = (-12);
+        internal const int GWL_STYLE = (-16);
+        internal const int GWL_EXSTYLE = (-20);
 
-        public const int WM_NCLBUTTONDOWN = 0x00A1;
-        public const int WM_NCRBUTTONUP = 0x00A5;
+        internal const int WM_NCLBUTTONDOWN = 0x00A1;
+        internal const int WM_NCRBUTTONUP = 0x00A5;
 
-        public const uint TPM_LEFTBUTTON = 0x0000;
-        public const uint TPM_RIGHTBUTTON = 0x0002;
-        public const uint TPM_RETURNCMD = 0x0100;
+        internal const uint TPM_LEFTBUTTON = 0x0000;
+        internal const uint TPM_RIGHTBUTTON = 0x0002;
+        internal const uint TPM_RETURNCMD = 0x0100;
 
-        public static readonly IntPtr TRUE = new IntPtr(1);
-        public static readonly IntPtr FALSE = new IntPtr(0);
+        internal static readonly IntPtr TRUE = new IntPtr(1);
+        internal static readonly IntPtr FALSE = new IntPtr(0);
 
-        public const uint ABM_GETSTATE = 0x4;
-        public const int ABS_AUTOHIDE = 0x1;
+        internal const uint ABM_GETSTATE = 0x4;
+        internal const int ABS_AUTOHIDE = 0x1;
 
         // Retrieves a handle to the display monitor that is nearest to the window  
         //检索到靠近窗口的显示监视器的处理
-        public const int MONITOR_DEFAULTTONEAREST = 2;
+        internal const int MONITOR_DEFAULTTONEAREST = 2;
 
         //不在ALT+TAB中
-        public const int WS_EX_TOOLWINDOW = 0x00000080;
+        internal const int WS_EX_TOOLWINDOW = 0x00000080;
     }
 }
