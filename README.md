@@ -11,7 +11,7 @@
 <h3>本源码采用VS2017 个人版 开发,部分C# 6.0+语法 vs2015 vs2013 vs2012 请自行修改源码中不支持的部分。</h3>
 <h3>---瑕疵:无法嵌入GDI+组件---</h3>
 
-<img  src="https://raw.githubusercontent.com/944095635/DMSkin-for-WPF/master/图片/单层.gif" />
+<img  src="https://raw.githubusercontent.com/944095635/DMSkin-for-WPF-Small/master/图片/单层.gif" />
 DMSkin-for-WPF是一个基于WPF的.Net WPF开源界面库,实现了无边框的WPF开发方案,内置部分控件模板.
 你可以参照模板自行修改完善。（以下简称DFW）。
 
