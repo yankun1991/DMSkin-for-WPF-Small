@@ -134,8 +134,16 @@ namespace DMSkin.WPF.Small
         /// </summary>
         private void WindowRestore()
         {
-            //启动最小化动画
-            //StoryboardSlowShow.Begin(this);
+            Opacity = 0;
+            Task.Factory.StartNew(() =>
+            {
+                Thread.Sleep(50);
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    WindowState = WindowState.Normal;
+                    Opacity = 1;
+                }));
+            });
         }
         #endregion
 
@@ -156,39 +164,39 @@ namespace DMSkin.WPF.Small
             switch (msg)
             {
                 //获取窗口的最大化最小化信息
-                case Win32.WM_GETMINMAXINFO:
+                case (int)WindowMessages.WM_GETMINMAXINFO:
                         WmGetMinMaxInfo(hwnd, lParam);
                         handled = true;
                     break;
                 //case Win32.WM_NCHITTEST:
                 //     return WmNCHitTest(lParam, ref handled);
-                //case Win32.WM_SYSCOMMAND:
-                //        if (wParam.ToInt32() == Win32.SC_MINIMIZE)//最小化消息
-                //        {
-                //            StoryboardHide();//执行最小化动画
-                //            handled = true;
-                //        }
-                //        if (wParam.ToInt32() == Win32.SC_RESTORE)//恢复消息
-                //        {
-                //            WindowRestore();//执行恢复动画
-                //            //handled = true;
-                //        }
-                //    break;
-                //case Win32.WM_NCPAINT:
-                //    break;
-                //case Win32.WM_NCCALCSIZE:
-                //    handled = true;
-                //    break;
-                //case Win32.WM_NCUAHDRAWCAPTION:
-                //case Win32.WM_NCUAHDRAWFRAME:
-                //    handled = true;
-                //    break;
-                //case Win32.WM_NCACTIVATE:
-                //    if (wParam == (IntPtr)Win32.WM_TRUE)
-                //    {
-                //        handled = true;
-                //    }
-                //    break;
+                case (int)WindowMessages.WM_SYSCOMMAND:
+                    //if (wParam.ToInt32() == Win32.SC_MINIMIZE)//最小化消息
+                    //{
+                        //StoryboardHide();//执行最小化动画
+                        //handled = true;
+                    //}
+                    if (wParam.ToInt32() == (int)WindowMessages.SC_RESTORE)//恢复消息
+                    {
+                        WindowRestore();//执行恢复动画
+                        handled = true;
+                    }
+                    break;
+                    //case Win32.WM_NCPAINT:
+                    //    break;
+                    //case Win32.WM_NCCALCSIZE:
+                    //    handled = true;
+                    //    break;
+                    //case Win32.WM_NCUAHDRAWCAPTION:
+                    //case Win32.WM_NCUAHDRAWFRAME:
+                    //    handled = true;
+                    //    break;
+                    //case Win32.WM_NCACTIVATE:
+                    //    if (wParam == (IntPtr)Win32.WM_TRUE)
+                    //    {
+                    //        handled = true;
+                    //    }
+                    //    break;
             }
             return IntPtr.Zero;
         }
@@ -196,19 +204,19 @@ namespace DMSkin.WPF.Small
         void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
         {
             // MINMAXINFO structure  
-            Win32.MINMAXINFO mmi = (Win32.MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(Win32.MINMAXINFO));
+            MINMAXINFO mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
             // Get handle for nearest monitor to this window  
-            IntPtr hMonitor = Win32.MonitorFromWindow(Handle, Win32.MONITOR_DEFAULTTONEAREST);
+            IntPtr hMonitor = NativeMethods.MonitorFromWindow(Handle, NativeConstants.MONITOR_DEFAULTTONEAREST);
 
             // Get monitor info   显示屏
-            Win32.MONITORINFOEX monitorInfo = new Win32.MONITORINFOEX();
+            MONITORINFOEX monitorInfo = new MONITORINFOEX();
 
             monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
-            Win32.GetMonitorInfo(new HandleRef(this, hMonitor), monitorInfo);
+            NativeMethods.GetMonitorInfo(new HandleRef(this, hMonitor), monitorInfo);
 
             // Convert working area  
-            Win32.RECT workingArea = monitorInfo.rcWork;
+            RECT workingArea = monitorInfo.rcWork;
 
             // Set the maximized size of the window  
             //ptMaxSize：  设置窗口最大化时的宽度、高度
@@ -216,8 +224,8 @@ namespace DMSkin.WPF.Small
             //mmi.ptMaxSize.y = (int)dpiIndependentSize.Y;
 
             // Set the position of the maximized window  
-            mmi.ptMaxPosition.x = workingArea.Left;
-            mmi.ptMaxPosition.y = workingArea.Top;
+            mmi.ptMaxPosition.x = workingArea.left;
+            mmi.ptMaxPosition.y = workingArea.top;
 
             // Get HwndSource  
             if (source == null)
@@ -246,8 +254,8 @@ namespace DMSkin.WPF.Small
             }
             else
             {
-                mmi.ptMaxSize.x = workingArea.Right;
-                mmi.ptMaxSize.y = workingArea.Bottom;
+                mmi.ptMaxSize.x = workingArea.right;
+                mmi.ptMaxSize.y = workingArea.bottom;
             }
 
             // Set the minimum tracking size ptMinTrackSize： 设置窗口最小宽度、高度 
@@ -294,7 +302,7 @@ namespace DMSkin.WPF.Small
         {
             if (e.OriginalSource is Grid || e.OriginalSource is Window || e.OriginalSource is Border)
             {
-                Win32.SendMessage(Handle, Win32.WM_NCLBUTTONDOWN, (int)Win32.HitTest.HTCAPTION, 0);
+                NativeMethods.SendMessage(Handle,(int)WindowMessages.WM_NCLBUTTONDOWN, (int)HitTest.HTCAPTION, 0);
                 return;
             }
         }

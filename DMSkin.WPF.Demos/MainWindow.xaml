@@ -13,7 +13,7 @@
         Background="White"         
         DMShowMin="True"
         DMShowMax="True"
-        DMWindowShadowSize="10"
+        DMWindowShadowSize="10"  
         DMSystemButtonSize="50"
         DMSystemButtonForeground="#FF666666"
         DMSystemButtonHoverColor="#33000000"
