@@ -31,7 +31,7 @@
             </Grid.RowDefinitions>
             <Border Grid.Column="0" BorderThickness="0,0,0,2" BorderBrush="{StaticResource LineColor}">
                 <Grid>
-                    <TextBlock Foreground="{StaticResource MainColor}" Text="DM-Studio" FontFamily="/DM-Studio;component/Fonts/#AR DESTINE" FontSize="20"
+                    <TextBlock Foreground="{StaticResource MainColor}" Text="DMSkin.WPF.Small 单层窗口" FontFamily="/DM-Studio;component/Fonts/#AR DESTINE" FontSize="20"
                            HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     <Button  Name="ButtonSkin"
                                 ToolTip="主题"
