@@ -1,4 +1,4 @@
-﻿# DMSkin-for-WPF-Small 精简版 2.0.0.0
+﻿# DMSkin-for-WPF-Small 迷你版 2.0.0.0
 <hr/>
 <h1>前言</h1>
 <h3>WPF无边框方案(单层窗体)</h3>
