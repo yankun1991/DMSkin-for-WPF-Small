@@ -86,6 +86,7 @@
                 <ControlTemplate TargetType="{x:Type Window}">
                     <Grid>
                         <Border 
+                            Background="{TemplateBinding Background}"
                             Panel.ZIndex="0"
                             BorderBrush="{TemplateBinding BorderBrush}"  
                             BorderThickness="{TemplateBinding BorderThickness}"  
