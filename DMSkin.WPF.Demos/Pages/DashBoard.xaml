@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              Foreground="#FF5B5B5B"  
              d:DesignHeight="700" d:DesignWidth="900">
-    <Grid Background="#FFFAFAFF">
+    <Grid Background="#F0F4F7">
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="280"></RowDefinition>
             <RowDefinition MinHeight="280"></RowDefinition>
@@ -145,7 +145,7 @@
                 </Grid>
             </Border>
         </Grid>
-        <Grid Margin="30,20,30,50" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+        <Grid Margin="30,20,30,20" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
             <Border CornerRadius="3" Background="White">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0" Color="#FFC8C8C8" Opacity="0.3" BlurRadius="20"/>
