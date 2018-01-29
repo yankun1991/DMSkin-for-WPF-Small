@@ -13,7 +13,7 @@
 
 
 
-<img  src="https://raw.githubusercontent.com/944095635/DMSkin-for-WPF/master/%E5%9B%BE%E7%89%87/IMG.png" />
+<img  src="https://raw.githubusercontent.com/944095635/DMSkin-for-WPF/master/图片/NEW.jpg" />
 
 <img  src="https://raw.githubusercontent.com/944095635/DMSkin-for-WPF-Small/master/图片/单层.gif" />
 DMSkin-for-WPF是一个基于WPF的.Net WPF开源界面库,实现了无边框的WPF开发方案,内置部分控件模板.
